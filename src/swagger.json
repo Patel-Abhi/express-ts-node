@@ -1,0 +1,492 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Hit Tracking API",
+    "description": "This is a sample API to insert data in hit tracking",
+    "contact": {
+      "email": "gauravg@saicreativeworld.co.in"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "SwaggerHub API Auto Mocking"
+    }
+  ],
+  "tags": [
+    {
+      "name": "tracking",
+      "description": "Add Tracking Data"
+    }
+  ],
+  "paths": {
+    "/tracking": {
+      "post": {
+        "tags": [
+          "tracking"
+        ],
+        "summary": "adds an hit tracking item data",
+        "description": "Adds an tracking item to the system",
+        "operationId": "addTracking",
+        "requestBody": {
+          "description": "Tracking item to add",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/hittracking_body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "tracking inserted"
+          },
+          "400": {
+            "description": "invalid input, object invalid"
+          },
+          "409": {
+            "description": "an existing item already exists"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ArmsTrackingItem": {
+        "required": [
+          "action",
+          "business_unit",
+          "is_key_action",
+          "source"
+        ],
+        "type": "object",
+        "properties": {
+          "business_unit": {
+            "type": "string",
+            "example": "ARMS"
+          },
+          "source": {
+            "type": "string",
+            "example": "source"
+          },
+          "action": {
+            "type": "string",
+            "example": "click"
+          },
+          "is_key_action": {
+            "type": "boolean",
+            "example": false
+          },
+          "ip_address": {
+            "type": "string",
+            "format": "ipv4",
+            "example": "192.144.1.1"
+          },
+          "client": {
+            "$ref": "#/components/schemas/Client"
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "arms_location": {
+            "$ref": "#/components/schemas/ArmsLocation"
+          },
+          "arms_company": {
+            "$ref": "#/components/schemas/ArmsCompany"
+          },
+          "arms_action": {
+            "$ref": "#/components/schemas/ArmsAction"
+          },
+          "additional_data": {
+            "type": "array",
+            "example": [
+              {
+                "label": "Label 1",
+                "value": "Value 1"
+              },
+              {
+                "label": "Label 2",
+                "value": "Value 2"
+              }
+            ],
+            "items": {
+              "$ref": "#/components/schemas/ArmsTrackingItem_additional_data"
+            }
+          }
+        }
+      },
+      "ArmsAction": {
+        "type": "object",
+        "properties": {
+          "arms_action_id": {
+            "type": "integer",
+            "example": 111
+          },
+          "arms_action_name": {
+            "type": "string",
+            "example": "Click Action"
+          },
+          "action_group": {
+            "type": "string",
+            "example": "Action Group"
+          },
+          "product_group": {
+            "type": "string",
+            "example": "Product Group"
+          },
+          "is_key_action": {
+            "type": "boolean",
+            "example": false
+          }
+        }
+      },
+      "ArmsLocation": {
+        "type": "object",
+        "properties": {
+          "arms_location_id": {
+            "type": "integer",
+            "example": 111
+          },
+          "arms_location_name": {
+            "type": "string",
+            "example": "Location Test"
+          }
+        }
+      },
+      "ArmsCompany": {
+        "type": "object",
+        "properties": {
+          "arms_company_id": {
+            "type": "integer",
+            "example": 111
+          },
+          "arms_company_name": {
+            "type": "string",
+            "example": "Company Test"
+          }
+        }
+      },
+      "ICITrackingItem": {
+        "required": [
+          "action",
+          "business_unit",
+          "is_key_action",
+          "source"
+        ],
+        "type": "object",
+        "properties": {
+          "business_unit": {
+            "type": "string",
+            "example": "ICI"
+          },
+          "source": {
+            "type": "string",
+            "example": "source"
+          },
+          "action": {
+            "type": "string",
+            "example": "click"
+          },
+          "is_key_action": {
+            "type": "boolean",
+            "example": false
+          },
+          "ip_address": {
+            "type": "string",
+            "format": "ipv4",
+            "example": "192.144.1.1"
+          },
+          "client": {
+            "$ref": "#/components/schemas/Client"
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "ici_subscription": {
+            "$ref": "#/components/schemas/ICISubscription"
+          },
+          "ici_company": {
+            "$ref": "#/components/schemas/ICICompany"
+          },
+          "ici_subsidary": {
+            "$ref": "#/components/schemas/ICISubsidary"
+          },
+          "ici_industry": {
+            "$ref": "#/components/schemas/ICIIndustry"
+          },
+          "ici_report": {
+            "$ref": "#/components/schemas/ICIReport"
+          },
+          "ici_section": {
+            "$ref": "#/components/schemas/ICISection"
+          },
+          "additional_data": {
+            "type": "array",
+            "example": [
+              {
+                "label": "Label 1",
+                "value": "Value 1"
+              },
+              {
+                "label": "Label 2",
+                "value": "Value 2"
+              }
+            ],
+            "items": {
+              "$ref": "#/components/schemas/ArmsTrackingItem_additional_data"
+            }
+          }
+        }
+      },
+      "Client": {
+        "type": "object",
+        "properties": {
+          "client_name": {
+            "type": "string",
+            "example": "Test Client"
+          },
+          "max_client_id": {
+            "type": "integer",
+            "example": 1101
+          },
+          "arms_client_id": {
+            "type": "integer",
+            "example": 1101
+          },
+          "ici_client_id": {
+            "type": "integer",
+            "example": 1101
+          },
+          "sales_rep": {
+            "type": "string",
+            "example": "Sales Rep"
+          },
+          "secondary_sales_rep": {
+            "type": "string",
+            "example": "Secondary Sales Rep"
+          },
+          "fd_status": {
+            "type": "string",
+            "example": "FD Status"
+          },
+          "cnt_status": {
+            "type": "string",
+            "example": "CNT Status"
+          },
+          "ici_contract_amount_1": {
+            "type": "integer",
+            "example": 4000
+          },
+          "ici_contract_amount_2": {
+            "type": "integer",
+            "example": 5000
+          },
+          "ici_contract_amount_3": {
+            "type": "integer",
+            "example": 6000
+          },
+          "is_internal": {
+            "type": "boolean",
+            "example": false
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "first_name": {
+            "type": "string",
+            "example": "FirstName"
+          },
+          "last_name": {
+            "type": "string",
+            "example": "LastName"
+          },
+          "ici_user_id": {
+            "type": "integer",
+            "example": 1101
+          },
+          "arms_user_id": {
+            "type": "integer",
+            "example": 1101
+          },
+          "max_contact_number": {
+            "type": "string",
+            "example": "1101-110-110"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "testuser@test.com"
+          },
+          "ici_status": {
+            "type": "string",
+            "example": "ICI Status"
+          }
+        }
+      },
+      "ICISubscription": {
+        "type": "object",
+        "properties": {
+          "ici_subscription_id": {
+            "type": "integer",
+            "example": 111
+          },
+          "ici_subscription_name": {
+            "type": "string",
+            "example": "ICI Sub 1"
+          },
+          "service": {
+            "type": "string",
+            "example": "Service"
+          },
+          "is_active_fd": {
+            "type": "boolean",
+            "example": false
+          },
+          "is_active_cnt": {
+            "type": "boolean",
+            "example": false
+          },
+          "fd_legacy_subscription_id": {
+            "type": "integer",
+            "example": 100
+          },
+          "cnt_legacy_subscription_id": {
+            "type": "integer",
+            "example": 101
+          }
+        }
+      },
+      "ICICompany": {
+        "type": "object",
+        "properties": {
+          "ici_company_id": {
+            "type": "integer",
+            "example": 111
+          },
+          "ici_company_name": {
+            "type": "string",
+            "example": "ICI Company 1"
+          },
+          "is_active_fd": {
+            "type": "boolean",
+            "example": false
+          },
+          "is_active_cnt": {
+            "type": "boolean",
+            "example": false
+          }
+        }
+      },
+      "ICISubsidary": {
+        "type": "object",
+        "properties": {
+          "ici_subsidary_id": {
+            "type": "integer",
+            "example": 111
+          },
+          "ici_subsidary_name": {
+            "type": "string",
+            "example": "ICI Subsidary 1"
+          }
+        }
+      },
+      "ICIIndustry": {
+        "type": "object",
+        "properties": {
+          "ici_industry_id": {
+            "type": "integer",
+            "example": 111
+          },
+          "ici_industry_name": {
+            "type": "string",
+            "example": "ICI Company 1"
+          },
+          "is_active_fd": {
+            "type": "boolean",
+            "example": false
+          },
+          "is_active_cnt": {
+            "type": "boolean",
+            "example": false
+          }
+        }
+      },
+      "ICIReport": {
+        "type": "object",
+        "properties": {
+          "ici_report_id": {
+            "type": "integer",
+            "example": 111
+          },
+          "title": {
+            "type": "string",
+            "example": "Location Test"
+          },
+          "summary": {
+            "type": "string",
+            "example": "Location Test"
+          },
+          "published_date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "is_active": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "ICISection": {
+        "type": "object",
+        "properties": {
+          "ici_section_id": {
+            "type": "integer",
+            "example": 111
+          },
+          "ici_section_code": {
+            "type": "string",
+            "example": "Company Test"
+          },
+          "ici_section_name": {
+            "type": "string",
+            "example": "Company Test"
+          },
+          "parent_section": {
+            "type": "string",
+            "example": "Company Test"
+          }
+        }
+      },
+      "hittracking_body": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/ICITrackingItem"
+          },
+          {
+            "$ref": "#/components/schemas/ArmsTrackingItem"
+          }
+        ]
+      },
+      "ArmsTrackingItem_additional_data": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
